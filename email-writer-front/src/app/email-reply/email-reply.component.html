@@ -1,11 +1,11 @@
 <div class="container-fluid py-4">
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
-      <mat-card class="email-reply-card">
+      <mat-card class="email-reply-card" role="main" aria-labelledby="page-title">
         <!-- Card Header -->
         <mat-card-header>
-          <mat-card-title class="d-flex align-items-center">
-            <mat-icon class="me-2">reply</mat-icon>
+          <mat-card-title class="d-flex align-items-center" id="page-title">
+            <mat-icon class="me-2" aria-hidden="true">reply</mat-icon>
             Generate Email Reply
           </mat-card-title>
           <mat-card-subtitle>
@@ -15,7 +15,11 @@
 
         <!-- Card Content -->
         <mat-card-content>
-          <form [formGroup]="emailForm" (ngSubmit)="generateReply()" class="email-form">
+          <form [formGroup]="emailForm" (ngSubmit)="generateReply()" class="email-form" 
+                role="form" aria-labelledby="form-title" novalidate>
+            
+            <!-- Screen reader only form title -->
+            <h2 id="form-title" class="sr-only">Email Reply Generation Form</h2>
             
             <!-- Original Email Content -->
             <div class="row mb-4">
@@ -27,14 +31,17 @@
                     formControlName="emailContent"
                     placeholder="Paste the original email content here..."
                     rows="6"
-                    class="original-email-textarea">
+                    class="original-email-textarea"
+                    id="email-content"
+                    aria-describedby="email-content-hint email-content-error"
+                    [attr.aria-invalid]="emailContent?.invalid && emailContent?.touched">
                   </textarea>
-                  <mat-icon matPrefix>email</mat-icon>
-                  <mat-hint>Enter the email you want to reply to (required)</mat-hint>
-                  <mat-error *ngIf="emailContent?.hasError('required') && emailContent?.touched">
+                  <mat-icon matPrefix aria-hidden="true">email</mat-icon>
+                  <mat-hint id="email-content-hint">Enter the email you want to reply to (required)</mat-hint>
+                  <mat-error id="email-content-error" *ngIf="emailContent?.hasError('required') && emailContent?.touched">
                     Original email content is required
                   </mat-error>
-                  <mat-error *ngIf="emailContent?.hasError('minlength') && emailContent?.touched">
+                  <mat-error id="email-content-error" *ngIf="emailContent?.hasError('minlength') && emailContent?.touched">
                     Please enter at least 10 characters
                   </mat-error>
                 </mat-form-field>
@@ -46,16 +53,20 @@
               <div class="col-12 col-md-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Response Tone</mat-label>
-                  <mat-select formControlName="tone">
-                    <mat-option *ngFor="let option of toneOptions" [value]="option.value">
+                  <mat-select formControlName="tone" 
+                             id="tone-select"
+                             aria-describedby="tone-hint"
+                             aria-label="Select response tone for email reply">
+                    <mat-option *ngFor="let option of toneOptions" [value]="option.value"
+                               [attr.aria-label]="'Select ' + option.label + ' tone'">
                       <div class="d-flex align-items-center">
-                        <mat-icon class="me-2">mood</mat-icon>
+                        <mat-icon class="me-2" aria-hidden="true">mood</mat-icon>
                         {{ option.label }}
                       </div>
                     </mat-option>
                   </mat-select>
-                  <mat-icon matPrefix>palette</mat-icon>
-                  <mat-hint>Choose the tone for your reply (optional)</mat-hint>
+                  <mat-icon matPrefix aria-hidden="true">palette</mat-icon>
+                  <mat-hint id="tone-hint">Choose the tone for your reply (optional)</mat-hint>
                 </mat-form-field>
               </div>
             </div>
@@ -63,15 +74,17 @@
             <!-- Action Buttons -->
             <div class="row mb-4">
               <div class="col-12">
-                <div class="d-flex flex-wrap gap-2">
+                <div class="d-flex flex-wrap gap-2" role="group" aria-label="Form actions">
                   <button 
                     mat-raised-button 
                     color="primary" 
                     type="submit"
                     [disabled]="!emailForm.valid || isGenerating"
-                    class="generate-btn">
-                    <mat-icon *ngIf="!isGenerating">auto_awesome</mat-icon>
-                    <mat-icon *ngIf="isGenerating" class="spinning">refresh</mat-icon>
+                    class="generate-btn"
+                    [attr.aria-describedby]="isGenerating ? 'generating-status' : null"
+                    [attr.aria-label]="isGenerating ? 'Generating email reply, please wait' : 'Generate email reply using AI'">
+                    <mat-icon *ngIf="!isGenerating" aria-hidden="true">auto_awesome</mat-icon>
+                    <mat-icon *ngIf="isGenerating" class="spinning" aria-hidden="true">refresh</mat-icon>
                     {{ isGenerating ? 'Generating...' : 'Generate Reply' }}
                   </button>
                   
@@ -80,21 +93,29 @@
                     color="accent" 
                     type="button"
                     (click)="clearForm()"
-                    [disabled]="isGenerating">
-                    <mat-icon>clear</mat-icon>
+                    [disabled]="isGenerating"
+                    aria-label="Clear all form fields and reset the form"
+                    class="mt-2 ms-2"
+                  >
+                    <mat-icon aria-hidden="true">clear</mat-icon>
                     Clear Form
                   </button>
+                  
+                  <!-- Live region for screen readers -->
+                  <div id="generating-status" class="sr-only" aria-live="polite" aria-atomic="true">
+                    <span *ngIf="isGenerating">Generating your email reply, please wait...</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Generated Reply Section -->
-            <div class="row" *ngIf="showGeneratedReply">
+            <div class="row" *ngIf="showGeneratedReply" role="region" aria-labelledby="generated-reply-title">
               <div class="col-12">
                 <mat-card class="generated-reply-card mt-5 px-2">
                   <mat-card-header>
-                    <mat-card-title class="d-flex align-items-center">
-                      <mat-icon class="me-2 text-success">check_circle</mat-icon>
+                    <mat-card-title class="d-flex align-items-center" id="generated-reply-title">
+                      <mat-icon class="me-2 text-success" aria-hidden="true">check_circle</mat-icon>
                         Generated Reply
                     </mat-card-title>
                   </mat-card-header>
@@ -107,9 +128,12 @@
                         [value]="generatedReply"
                         readonly
                         rows="8"
-                        class="generated-reply-textarea">
+                        class="generated-reply-textarea"
+                        id="generated-reply-text"
+                        aria-label="Generated email reply text, read-only"
+                        tabindex="0">
                       </textarea>
-                      <mat-icon matPrefix>smart_toy</mat-icon>
+                      <mat-icon matPrefix aria-hidden="true">smart_toy</mat-icon>
                     </mat-form-field>
 
                     <!-- Copy to Clipboard Button -->
@@ -119,10 +143,15 @@
                         color="accent"
                         type="button"
                         (click)="copyToClipboard()"
-                        class="copy-btn">
-                        <mat-icon>content_copy</mat-icon>
+                        class="copy-btn"
+                        aria-label="Copy generated email reply to clipboard"
+                        [attr.aria-describedby]="'copy-hint'">
+                        <mat-icon aria-hidden="true">content_copy</mat-icon>
                             Copy Reply
                       </button>
+                      <div id="copy-hint" class="sr-only">
+                        Press this button to copy the generated email reply to your clipboard
+                      </div>
                     </div>
                   </mat-card-content>
                 </mat-card>
