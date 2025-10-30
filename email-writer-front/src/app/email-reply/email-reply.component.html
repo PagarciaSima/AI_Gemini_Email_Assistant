@@ -1,0 +1,137 @@
+<div class="container-fluid py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <mat-card class="email-reply-card">
+        <!-- Card Header -->
+        <mat-card-header>
+          <mat-card-title class="d-flex align-items-center">
+            <mat-icon class="me-2">reply</mat-icon>
+            Generate Email Reply
+          </mat-card-title>
+          <mat-card-subtitle>
+            Create professional email responses using AI assistance
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <!-- Card Content -->
+        <mat-card-content>
+          <form [formGroup]="emailForm" (ngSubmit)="generateReply()" class="email-form">
+            
+            <!-- Original Email Content -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Original Email Content</mat-label>
+                  <textarea 
+                    matInput 
+                    formControlName="emailContent"
+                    placeholder="Paste the original email content here..."
+                    rows="6"
+                    class="original-email-textarea">
+                  </textarea>
+                  <mat-icon matPrefix>email</mat-icon>
+                  <mat-hint>Enter the email you want to reply to (required)</mat-hint>
+                  <mat-error *ngIf="emailContent?.hasError('required') && emailContent?.touched">
+                    Original email content is required
+                  </mat-error>
+                  <mat-error *ngIf="emailContent?.hasError('minlength') && emailContent?.touched">
+                    Please enter at least 10 characters
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Tone Selection -->
+            <div class="row mb-4">
+              <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Response Tone</mat-label>
+                  <mat-select formControlName="tone">
+                    <mat-option *ngFor="let option of toneOptions" [value]="option.value">
+                      <div class="d-flex align-items-center">
+                        <mat-icon class="me-2">mood</mat-icon>
+                        {{ option.label }}
+                      </div>
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matPrefix>palette</mat-icon>
+                  <mat-hint>Choose the tone for your reply (optional)</mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="row mb-4">
+              <div class="col-12">
+                <div class="d-flex flex-wrap gap-2">
+                  <button 
+                    mat-raised-button 
+                    color="primary" 
+                    type="submit"
+                    [disabled]="!emailForm.valid || isGenerating"
+                    class="generate-btn">
+                    <mat-icon *ngIf="!isGenerating">auto_awesome</mat-icon>
+                    <mat-icon *ngIf="isGenerating" class="spinning">refresh</mat-icon>
+                    {{ isGenerating ? 'Generating...' : 'Generate Reply' }}
+                  </button>
+                  
+                  <button 
+                    mat-stroked-button 
+                    color="accent" 
+                    type="button"
+                    (click)="clearForm()"
+                    [disabled]="isGenerating">
+                    <mat-icon>clear</mat-icon>
+                    Clear Form
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Generated Reply Section -->
+            <div class="row" *ngIf="showGeneratedReply">
+              <div class="col-12">
+                <mat-card class="generated-reply-card mt-5 px-2">
+                  <mat-card-header>
+                    <mat-card-title class="d-flex align-items-center">
+                      <mat-icon class="me-2 text-success">check_circle</mat-icon>
+                        Generated Reply
+                    </mat-card-title>
+                  </mat-card-header>
+                  
+                  <mat-card-content>
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Your AI-Generated Email Reply</mat-label>
+                      <textarea 
+                        matInput 
+                        [value]="generatedReply"
+                        readonly
+                        rows="8"
+                        class="generated-reply-textarea">
+                      </textarea>
+                      <mat-icon matPrefix>smart_toy</mat-icon>
+                    </mat-form-field>
+
+                    <!-- Copy to Clipboard Button -->
+                    <div class="d-flex justify-content-end mt-3">
+                      <button 
+                        mat-raised-button 
+                        color="accent"
+                        type="button"
+                        (click)="copyToClipboard()"
+                        class="copy-btn">
+                        <mat-icon>content_copy</mat-icon>
+                            Copy Reply
+                      </button>
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+            </div>
+
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -37,6 +37,7 @@ public class EmailGeneratorController {
         log.info("Received request to generate email reply.");
         String response = emailGeneratorService.generateEmailReplay(emailRequest);
         log.info("Email reply generated successfully.");
+        log.info("Generated Email Reply: {}", response);
         return ResponseEntity.ok(response);
     }
 

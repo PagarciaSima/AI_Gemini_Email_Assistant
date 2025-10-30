@@ -1,0 +1,213 @@
+/* Main container styles */
+.email-reply-card {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  margin-bottom: 2rem;
+}
+
+.email-reply-card .mat-mdc-card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+  padding: 1.5rem;
+  margin: -1rem -1rem 1rem -1rem;
+}
+
+.email-reply-card .mat-mdc-card-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.email-reply-card .mat-mdc-card-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 0.5rem;
+}
+
+/* Form styles */
+.email-form {
+  padding: 1rem 0;
+}
+
+.mat-mdc-form-field {
+  margin-bottom: 1rem;
+}
+
+.original-email-textarea,
+.generated-reply-textarea {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* Button styles */
+.generate-btn {
+  min-width: 180px;
+  height: 48px;
+  font-weight: 600;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.generate-btn:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.generate-btn:disabled {
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+}
+
+.copy-btn {
+  border-radius: 20px;
+  font-weight: 600;
+  min-width: 140px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+  transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
+}
+
+/* Generated reply card */
+.generated-reply-card {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  animation: slideInUp 0.5s ease-out;
+}
+
+.generated-reply-card .mat-mdc-card-header {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+  padding: 1rem 1.5rem;
+  margin: -1rem -1rem 1rem -1rem;
+}
+
+.generated-reply-card .mat-mdc-card-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* Icon styles */
+.mat-icon {
+  vertical-align: middle;
+}
+
+.text-success {
+  color: #28a745 !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .email-reply-card {
+    margin: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .email-reply-card .mat-mdc-card-header {
+    border-radius: 8px 8px 0 0;
+    padding: 1rem;
+  }
+  
+  .generate-btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .copy-btn {
+    width: 100%;
+  }
+  
+  .d-flex.gap-2 {
+    flex-direction: column;
+  }
+}
+
+/* Form field improvements */
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+  border-radius: 8px;
+}
+
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline-thick {
+  border-width: 2px;
+}
+
+/* Error styles */
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-form-field-outline-thick {
+  border-color: #f44336;
+}
+
+/* Hint and error text */
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Loading state for textarea */
+.mat-mdc-form-field.loading .mat-mdc-text-field-wrapper {
+  opacity: 0.7;
+}
+
+/* Custom scrollbar for textareas */
+.original-email-textarea::-webkit-scrollbar,
+.generated-reply-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.original-email-textarea::-webkit-scrollbar-track,
+.generated-reply-textarea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.original-email-textarea::-webkit-scrollbar-thumb,
+.generated-reply-textarea::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.original-email-textarea::-webkit-scrollbar-thumb:hover,
+.generated-reply-textarea::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
