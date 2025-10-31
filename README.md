@@ -112,3 +112,10 @@ email-writer-extension/
 
 ✅ **Tip:** You can modify `content.js` to adjust UI placement or trigger conditions if Gmail’s interface changes in the future.
 
+## Interfaces 🖥️
+
+- **Chrome extension**  
+  ![chrome extension](img/chrome-extension.png)
+
+- **Angular integration**  
+  ![Angular integration](img/angular.png)
