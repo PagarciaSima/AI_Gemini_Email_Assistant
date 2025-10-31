@@ -20,10 +20,10 @@ Key highlights:
 ## 🎥 Demo Videos
 
 ### Chrome - Gmail extension
-**📺 Watch here:** https://www.youtube.com/watch?v=GMzUMhRNuaM
+**📺 Watch here:** https://www.youtube.com/watch?v=gSTQVBvkYT8
 
 ### Angular - Integration
-**📺 Watch here:** https://www.youtube.com/watch?v=GMzUMhRNuaM
+**📺 Watch here:** https://www.youtube.com/watch?v=cTcnEX85qCY
 
 ---
 
