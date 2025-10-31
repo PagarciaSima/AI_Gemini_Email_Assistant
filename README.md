@@ -77,17 +77,20 @@ Key highlights:
 The Chrome extension enables seamless integration with Gmail, allowing the AI assistant to generate replies directly inside the Gmail compose window.
 
 ### 📁 Folder Structure
+```bash
 email-writer-extension/
 │
-├── 📄 manifest.json → Defines the extension’s permissions, scripts, and metadata.
-├── 📄 content.js → Main logic file injected into Gmail’s DOM.
-│ Handles:
-│ • Detecting Gmail compose boxes.
-│ • Injecting custom AI reply buttons.
-│ • Sending and receiving messages from the backend API.
+├── 📄 manifest.json     → Defines the extension’s permissions, scripts, and metadata.
+├── 📄 content.js        → Main logic file injected into Gmail’s DOM.
+│                         Handles:
+│                         • Detecting Gmail compose boxes.
+│                         • Injecting custom AI reply buttons.
+│                         • Sending and receiving messages from the backend API.
 │
-├── 🎨 content.css → Styles applied to injected UI components.
-│ Ensures a consistent look while isolating styles from Gmail’s own CSS.
+├── 🎨 content.css       → Styles applied to injected UI components.
+│                         Ensures a consistent look while isolating styles from Gmail’s own CSS
+
+```````
 
 ### ⚙️ How to Load the Extension in Chrome
 
